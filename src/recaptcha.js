@@ -115,6 +115,14 @@ export default class ReCAPTCHA extends React.Component {
     this.captcha = elem;
   }
 
+  componentWillUnmount() {
+    Array.prototype.slice.call(document.getElementsByTagName('IFRAME')).forEach(element => {
+      if (element.src.indexOf('www.google.com/recaptcha') > -1 && element.parentNode) {
+        element.parentNode.removeChild(element);
+      }
+    });
+  }
+
   render() {
     // consume properties owned by the reCATPCHA, pass the rest to the div so the user can style it.
     /* eslint-disable no-unused-vars */
